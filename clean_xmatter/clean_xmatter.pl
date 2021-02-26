@@ -283,7 +283,7 @@ L<fraser_bennett@sil-lead.org|mailto:fraser_bennett@sil-lead.org>.
 =head1 Copyright and License
 
 clean_xmatter.pl Copyright 2020 L<SIL LEAD, Inc.|https://www.sil-lead.org>
-L<CC-BY 4.0 International|https://creativecommons.org/licenses/by/4.0/>
+Licensed under the L<GNU General Public License 3.0|https://www.gnu.org/licenses/gpl-3.0.en.html>
 
 =head1 Acknolwedgements
 
