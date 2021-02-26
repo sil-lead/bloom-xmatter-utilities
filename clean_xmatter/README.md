@@ -37,7 +37,7 @@ You are highly encouraged to run the script on a copy of the originals!
 - **--sourcedir**
 
     specifies the path to the directory that contains the Bloom books to be processed.
-    The directory **must** contain a **.bloomCollection** file. (The script doesn't
+    The directory **must** contain a `.bloomCollection` file. (The script doesn't
     do anything to or with the .bloomCollection file -- it's just a convenient
     way to recognize a folder of Bloom books. This also allows the script to deal with
     nested Bloom book folders.)
@@ -88,115 +88,80 @@ have the following structure:
     </collections>
 ```
 
-**\<merge\>**, **\<delete\>**, and **\<change\>** elements can appear in either
-**\<allCollections\>** or **\<collection\>** elements, in any order.
+`<merge>`, `<delete>`, and `<change>` elements can appear in either
+`<allCollections>` or `<collection>` elements, in any order.
 
-- **collections**
+## `<collections>`
 
-    **\<collections\>** is the root of the XML file, but it really just
-    serves as a wrapper for what is beneath. You should never have to refer to it.    
+`<collections>` is the root of the XML file, but it really just
+serves as a wrapper for what is beneath. You should never have to refer to it.    
     
-- **\<allCollections\>**
+## `<allCollections>`
 
-    **\<allCollections\>** contains a set of changes that will be applied to
-    all collections. These will mostly be **\<delete\>**.
+`<allCollections>` contains a set of changes that will be applied to all 
+collections. 
 
-- **\<collection\>**
+## `<collection>`
 
-    **\<collection\>** contains a list of changes to be applied to a single
-    Bloom collection, as a series of **\<change\>**, **\<delete\>**, 
-    and **\<merge\>** 
-    elements. **\<change\>**, **\<delete\>**, and **\<merge\>** may appear in any order, but be aware that 
-    **\<change\>** and **\<delete\>** are applied in the order in which
-    they appear.   
+`<collection>` contains a list of changes to be applied to a single
+Bloom collection, as a series of `<change>`, `<delete>`, 
+and `<merge>` elements. `<change>`, `<delete>`, and `<merge>` may appear in any order, 
+but be aware that `<change>` and `<delete>` are applied in the order in which they appear.   
 	
-    **\<collection\>** has three required attributes: 
-	- **@name**
+`<collection>` has three required attributes: 
+	
+- **`@name`**
 
-        	**name** specifies the name (i.e., the filename) of the 
-		folder/directory  that
-        	contains the Bloom collection. This is usually (but not always) the 
-		same as the filename (less the .bloomCollection extension) of the
-       		.bloomCollection file that also resides in the folder -- here, we 
-		want the folder name.
+	`@name` specifies the name (i.e., the filename) of the folder/directory  that contains the Bloom collection. This is usually (but not always) the same as the filename (less the .bloomCollection extension) of the .bloomCollection file that also resides in the folder. Here, we want the folder name.
 
-    	- **@l1**
+- **`@l1`**
 
-        	Bloom allows for up to three languages to be specified for each book.
-	        **clean_xmatter.pl** assumes that at least two languages will be 		specified.
-  
-        	**l1** specifies the ISO 639 code that will be written in the
-        @data-l1 attribute on the HTML <body> element in the output fie. This is the
-        "vernacular" language, the main language of the book. The code used may be a
-        two-letter [ISO639-2](https://www.loc.gov/standards/iso639-2/) or a
-        three-letter [ISO639-3](https://iso639-3.sil.org/code_tables/639/data) code.
+	Bloom allows for up to three languages to be specified for each book. clean_xmatter.pl assumes that at least two languages will be specified. `@l1` specifies the ISO 639 code that will be written in the `@data-l1` attribute on the HTML `<body>` element in the output fie. This is "vernacular" language, the main language of the book. The code used may be two-letter [ISO639-2](https://www.loc.gov/standards/iso639-2/) or three-letter [ISO639-3](https://iso639-3.sil.org/code_tables/639/data) code.
 
-    	- **@l2**
+- **`@l2`**
 
-		**l2** specifies the [ISO639](https://en.wikipedia.org/wiki/ISO_639)
-        code that will be written to the output file in the
-        **data-l2** attribute on the HTML <body> element. This is the
-        main language of many front-matter metadata elements, such as copyright and
-        licensing information, and is usually a national language. **l2** may be the
-        same as **l1**.
+	`@l2` specifies the [ISO639](https://en.wikipedia.org/wiki/ISO_639) code that will be written to the output file in `@data-l2` attribute on the HTML \<body\> element. This is main language of many front-matter metadata elements, such as copyright licensing information, and is usually a national language. `@l2` may be same as `@l1`.
 
-    	- **l3** (optional)
+- **`@l3`** (optional)
 
-        	**l3** specifies the ISO639 code that will be written to the output 
-		file in the **data-l3** attribute on the HTML <body> element. 
-		**data-l3** specifies a regional or international language.
+	`@l3` specifies the ISO639 code that will be written to the output file in the `data-l3` attribute on the HTML \<body\> element. `@data-l3` specifies a regional or international language.
 	
 	Example: 
 ```
-<collection name="myBloomBooks" l1="dag" l2="en">
+	<collection name="myBloomBooks" l1="dag" l2="en">
 ```
 
-- **\<delete\>**
+## <delete>
 
-    **\<delete\>** is wrapper for a **\<target\>** element (and the elements 
-    picked out by the <tarrget> element are, unsurprisingly, deleted from 
-    the output file).
+`<delete>` is wrapper for a `<target>` element (the elements picked out by the `<target>` element are, unsurprisingly, deleted from the output file).
 
-- **\<target\>**
+## <target>
 
-    The content of **<target>** is an XPath expression that specifies
-    an HTML element that should be removed from the Bloom book. The XPath
-    expression should pick out an element, not an attribute or text content.
+The content of `<target>` is an XPath expression that specifies an HTML element that should be removed from the Bloom book. The XPath expression should pick out an element, not an attribute or text content.
 
-    For instance, the
-    following will remove existing copyright metadata element from a Bloom book
-    (presumably to be replaced by a corrected copyright element).
+For instance, the following will remove existing copyright metadata element from a Bloom book (presumably to be replaced by a corrected copyright element).
 
 ```
 <target>//div[@id="bloomDataDiv"]/div[@data-book="copyright"]</target>
 ```
 
-	Because the XPath search routines are based on [XML::XPathEngine](https://metacpan.org/pod/XML::XPathEngine), you can use a regular expresssion in the XPath expression -- for example:
+Because the XPath search routines are based on [XML::XPathEngine](https://metacpan.org/pod/XML::XPathEngine), 
+you can use a regular expresssion in the XPath expression -- for example:
 
 ```
 <target>//div[@class=~/\bcredits\b/]//div[@data-derived="copyright"]</target>
 ```
 
-- **\<change\>**
+## <change>
 
-    A **\<change\>** element has two children: a **\<target\>** element
-    that specifies the set of elements to be acted on, and a **\<to\>**
-    element that specifies the alterations to be made.
+ A `<change>` element has two children: a `<target>` element that specifies the set of elements to be acted on, and a `<to>` element that specifies the alterations to be made.
 
-	- **<to>**
+### <to>
 
-    		**\<to\>** specifies the changes to make in an element that is picked 
-		outby a sibling **\<target\>** XPath expression. 
-		Only attribute values may be
-    changed: clean_xmatter.pl will not change the tag name of an attribute. The
-    attributes of **\<to\>** and their values specifiy the attributes of the
-    targeted elements that will be changed and their new values.  
+`<to>` specifies the changes to make in an element that is picked out by a sibling `<target>` XPath expression. Only attribute values may be changed: clean_xmatter.pl will not change the tag name of an attribute. The attributes of `<to>` and their values specifiy the attributes of the targeted elements that will be changed and their new values.  
 
-    		Typically, this involves a **data-book** attribute (which specifies a
-    front-matter metadata field) and a **lang** attribute, which specifies the
-    language of that field's contents.
+Typically, this involves a **data-book** attribute (which specifies a front-matter metadata field) and a **lang** attribute, which specifies the language of that field's contents. For instance:
 
-    		For instance:
 ```
 <change>
     <target>//div[@id="bloomDataDiv"]/div[@data-book="bookTitle" and @lang="en"</target>
@@ -204,19 +169,19 @@ have the following structure:
 </change>
 ```
 
-		The **<target>** XPath expression will seek out **<div>**
-elements that are children of the
-**<div id="bloomDataDiv">** element, and that contain the content of the
-**bookTitle** front matter field _and_ are tagged as being in English ("en").
+In the above example, the `<target>` XPath expression seeks out \<div\>
+elements that (1) are children of the
+`<div id="bloomDataDiv">` element, and (2) that contain the content of the
+`bookTitle` front matter field _and_ are tagged as being in English ("en").
 clean_xmatter.pl will change all such elements so that their content
-is instead tagged as belonging to the front matter **levelInformation** field,
+is instead tagged as belonging to the front matter `levelInformation` field,
 and as being in the Southern Pashto language ("pbt").
 
-		You can change the "lang" attributes of all the _other_
-<div id="bloomDataDiv">/<div> elements (that is, child <div> elements of 
-<div id`"bloomDataDiv") by placing the
-following general <change> element _after_ the more specific
-<change> elements:
+You can change the "lang" attributes of all the _other_
+`<div id="bloomDataDiv"\>/\<div\>` elements (that is, child `<div>` elements of 
+`<div id="bloomDataDiv">` element) by placing the
+following general \<change\> element _after_ the more specific
+`<change>` elements:
 
 ```
 <change>
@@ -225,21 +190,22 @@ following general <change> element _after_ the more specific
 </change>
 ```
 
-		Similarly, if you change the primary language ("Language 1") of a book,
+Similarly, if you change the primary language ("Language 1") of a book,
 you will typically have to re-tag all the text fields in the body of the book
 as belonging to the new language. You can do this with:
 
 ```
 <change>
-    <target>//div[@role="textbox" and @lang="I<old_language_code>"]</target>
+    <target>//div[@role="textbox" and @lang="old_language_code"]</target>
     <to lang="new_language_code"/>
 </change>
 ```
 
-- **\<merge\>**
-    **\<merge\>** takes two or more <target> elements. The contents of the 
-    elements specified by the XPath strings in the child <target> elements 
-    are combined. The first <target> child element of a <merge> element is 
+## <merge>
+
+`<merge>` takes two or more `<target>` elements. The contents of the 
+    elements specified by the XPath strings in the child `<target>` elements 
+    are combined. The first `<target>` child element of a `<merge>` element is 
     kept; the cotents of other child elements are merged into the first.
     
 
