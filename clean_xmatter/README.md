@@ -131,11 +131,11 @@ but be aware that `<change>` and `<delete>` are applied in the order in which th
 	<collection name="myBloomBooks" l1="dag" l2="en">
 ```
 
-## <delete>
+## `<delete>`
 
 `<delete>` is wrapper for a `<target>` element (the elements picked out by the `<target>` element are, unsurprisingly, deleted from the output file).
 
-## <target>
+## `<target>`
 
 The content of `<target>` is an XPath expression that specifies an HTML element that should be removed from the Bloom book. The XPath expression should pick out an element, not an attribute or text content.
 
@@ -152,11 +152,11 @@ you can use a regular expresssion in the XPath expression -- for example:
 <target>//div[@class=~/\bcredits\b/]//div[@data-derived="copyright"]</target>
 ```
 
-## <change>
+## `<change>`
 
  A `<change>` element has two children: a `<target>` element that specifies the set of elements to be acted on, and a `<to>` element that specifies the alterations to be made.
 
-### <to>
+### `<to>`
 
 `<to>` specifies the changes to make in an element that is picked out by a sibling `<target>` XPath expression. Only attribute values may be changed: clean_xmatter.pl will not change the tag name of an attribute. The attributes of `<to>` and their values specifiy the attributes of the targeted elements that will be changed and their new values.  
 
@@ -201,7 +201,7 @@ as belonging to the new language. You can do this with:
 </change>
 ```
 
-## <merge>
+## `<merge>`
 
 `<merge>` takes two or more `<target>` elements. The contents of the 
     elements specified by the XPath strings in the child `<target>` elements 
