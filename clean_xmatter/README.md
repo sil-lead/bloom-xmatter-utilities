@@ -239,7 +239,7 @@ Please report any bugs or feature requests to
 # Copyright and License
 
 clean_xmatter.pl Copyright 2020 [SIL LEAD, Inc.](https://www.sil-lead.org)
-[CC-BY 4.0 International](https://creativecommons.org/licenses/by/4.0/)
+Licensed under the [GNU General Public License 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 # Acknolwedgements
 
