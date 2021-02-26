@@ -112,6 +112,7 @@ have the following structure:
 	
     **\<collection\>** has three required attributes: 
 	- **@name**
+
         	**name** specifies the name (i.e., the filename) of the 
 		folder/directory  that
         	contains the Bloom collection. This is usually (but not always) the 
@@ -132,7 +133,7 @@ have the following structure:
 
     	- **@l2**
 
-        **l2** specifies the [ISO639](https://en.wikipedia.org/wiki/ISO_639)
+		**l2** specifies the [ISO639](https://en.wikipedia.org/wiki/ISO_639)
         code that will be written to the output file in the
         **data-l2** attribute on the HTML <body> element. This is the
         main language of many front-matter metadata elements, such as copyright and
@@ -150,11 +151,13 @@ have the following structure:
 <collection name="myBloomBooks" l1="dag" l2="en">
 ```
 
-- **<delete>**
+- **\<delete\>**
 
-    **<delete>** is wrapper for a **<target>** element.
+    **\<delete\>** is wrapper for a **\<target\>** element (and the elements 
+    picked out by the <tarrget> element are, unsurprisingly, deleted from 
+    the output file).
 
-- **<target>**
+- **\<target\>**
 
     The content of **<target>** is an XPath expression that specifies
     an HTML element that should be removed from the Bloom book. The XPath
@@ -168,26 +171,25 @@ have the following structure:
 <target>//div[@id="bloomDataDiv"]/div[@data-book="copyright"]</target>
 ```
 
-	Because the XPath search routines are based on
-[XML::XPathEngine](https://metacpan.org/pod/XML::XPathEngine), you can
-use a regular expresssion in the XPath expression:
+	Because the XPath search routines are based on [XML::XPathEngine](https://metacpan.org/pod/XML::XPathEngine), you can use a regular expresssion in the XPath expression -- for example:
 
 ```
 <target>//div[@class=~/\bcredits\b/]//div[@data-derived="copyright"]</target>
 ```
 
-- **<change>**
+- **\<change\>**
 
-    A **<change>** element has two children: a **<target>** element
-    that specifies the set of elements to be acted on, and a **<to>**
+    A **\<change\>** element has two children: a **\<target\>** element
+    that specifies the set of elements to be acted on, and a **\<to\>**
     element that specifies the alterations to be made.
 
 	- **<to>**
 
-    		**<to>** specifies the changes to make in an element that is picked out
-    by a sibling **<target>** XPath expression. Only attribute values may be
-    changed: **clean\_xmatter.pl** will not change the tag name of an attribute. The
-    attributes of **<to>** and their values specifiy the attributes of the
+    		**\<to\>** specifies the changes to make in an element that is picked 
+		outby a sibling **\<target\>** XPath expression. 
+		Only attribute values may be
+    changed: clean_xmatter.pl will not change the tag name of an attribute. The
+    attributes of **\<to\>** and their values specifiy the attributes of the
     targeted elements that will be changed and their new values.  
 
     		Typically, this involves a **data-book** attribute (which specifies a
@@ -234,10 +236,10 @@ as belonging to the new language. You can do this with:
 </change>
 ```
 
-- **<merge>**
-    **<merge>** takes two or more **<target>** elements. The contents of the 
+- **\<merge\>**
+    **\<merge\>** takes two or more <target> elements. The contents of the 
     elements specified by the XPath strings in the child <target> elements 
-    are combined. The first <target>> child element of a <merge> element is 
+    are combined. The first <target> child element of a <merge> element is 
     kept; the cotents of other child elements are merged into the first.
     
 
